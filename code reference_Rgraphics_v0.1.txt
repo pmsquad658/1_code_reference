@@ -1,0 +1,259 @@
+
+
+=======================================================================[ Base Plot ]
+
+===  히스토그램
+
+hist(x1, breaks = seq(0, 1, 0.1), freq = F, ylim = c(0,3), nclass = 20)
+
+
+hist(round.salseamount.1e.07., breaks=c(seq(0, 500, 10), 1000, 2000), prob=F, main="A???? ?????? ?????? ???? (???? : o????)", border="#ffffff", col="#999999", xlab="??????")
+hist(salecount, nclass=30, xlim=c(0,70000), ylim=c(0, 35), main="A???? ?????? ????? ????", xlab="???", col=rainbow(7), border="black")
+
+hist(avgcost, nclass=30, ylim=c(0, 45),xlim=c(0, 1500000), main="A???? ?????? ???? ????", xlab="????", col=rainbow(7), border="black")
+hist(avgcost, nclass=30, freq=F, xlim=c(0, 1500000), main="A???? ?????? ???? ????", xlab="????", col=rainbow(7), border="black")
+
+lines(density(avgcost), lty=1, col="red", lwd=3)
+lines(density(ajd.saleamount), lty=1, col="red", lwd=3)
+
+curve(dnorm(x,m,s), add=T)
+
+
+hist(salecount, nclass=100, freq=F, main="A???? ?????? ????? ????", xlab="???", col=rainbow(7), border="black", xlim=c(0, 70000))
+lines(density(salecount), lty=1, col="red", lwd=3)
+
+# breaks 를 설정하는 방법
+
+1) 각 구간을 나누는 점들로 이루어진 벡터. breaks=seq(35,105,length=8)
+2) 구간의 개수를 표시하는 하나의 상수. breaks=10
+3) 자료에 맞추어 구간의 수를 자동으로 계산하는 각 알고리즘을 칭하는 문자형 변수
+
+    (default="Sturges", 다른 방법으로는 Scott와 FD가 있음)
+hist(math, breaks="Scott")              # Scott방법
+hist(math, breaks="FD")                 # FD방법
+
+
+
+# prob=T 상대도수에 비례해서 그리기(퍼센트)
+
+ 
+
+hist(math, breaks=seq(35,105,length=8))
+
+
+
+
+
+
+=== 꺾은선 그래프
+
+plot(google[1:24, 3], google[1:24, 5])
+i <- 1
+while(i < 720) {
+  
+  lines(google[i:(i+23), 3], google[i:(i+23), 5])
+  i <- i+24
+  
+}
+
+lines(google[1:24, 3], google[1:24, 5])
+plot(google[25:35, 3], google[25:35, 5])
+lines(google[25:(25+24), 3], google[25:(25+24), 5])
+
+=== 부호 그래프
+
+symbols(trees$Girth, trees$Height, circles=trees$Volume, inches=0.2)
+symbols(trees$Girth, trees$Height, squares=trees$Volume, inches=0.2)
+
+
+
+
+
+
+
+
+======================================================================[ ggplot2 ]
+
+
+## qplot
+
+qplot(p1$month, p1$V2, geom="bar", stat="identity", xlab=("month"), ylab=("일평균강수량")) + ylim(0,20)
+
+> qplot(diamonds$carat, diamonds$price)
+> qplot(carat, price, data = diamonds)
+> qplot(carat, price, data = diamonds, geom="point" ,colour=clarity) # -- (1)
+> qplot(carat, price, data = diamonds, geom=c("point", "smooth"), method=lm)
+> qplot(carat, data = diamonds,geom="histogram")
+
+# Layer 방식으로 같은 결과
+
+> ggplot(data=diamonds, aes(x=carat,y=price)) + geom_point(aes(colour=clarity))
+
+
+
+
+
+## ggplot1
+
+# 남녀별 몸무게의 히스토그램을 본다.
+
+g <- ggplot(df_data, aes(x = weight, fill = sex_name)) + geom_histogram(bins=20)
+g <- g + scale_x_continuous(breaks = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100))
+g <- g + theme(text = element_text(family = "나눔명조"))
+g <- ggplot(df_data, aes(x = weight, fill = bmi_cate)) + geom_histogram(bins=20)
+g <- ggplot(df_data[df_data$bmi_cate == '비만', ], aes(x = weight, y=..density..)) + geom_histogram(bins=20, fill="cornsilk", colour="grey60", size=.2)
+g <- g + geom_line(stat = "density", colour="red", adjust=4) + expand_limits(y=0)
+
+ggplot(c2b, aes(x=Date, fill=Cult, y=Weight)) + geom_bar(stat="identity", position="dodge") 
+ggplot(data.frame(X=x, Y=y), aes(x=X, y=Y))+   geom_point()+ geom_smooth(se=FALSE)
+
+# 히스토그램 그릴 때 x 만 설정하고 각축 스케일값을 지정
+ggplot(NULL, aes(x=avg)) + geom_histogram(fill="white", colour="black") + scale_y_log10() + scale_x_continuous(name="Sales per month", labels=comma)
+
+
+
+
+# qplot freqpoly
+qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000)
+qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000, colour = color)
+qplot(price, ..density.., data = diamonds, geom = "freqpoly", binwidth = 1000, colour = color)
+
+
+
+# geom point()
+
+p <- ggplot(mtcars, aes(wt, mpg))
+p + geom_point()
+p + geom_point(aes(colour = qsec))
+p + geom_point(aes(alpha = qsec))
+p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
+p + geom_point(aes(colour = factor(cyl)))
+p + geom_point(aes(shape = factor(cyl)))
+p + geom_point(aes(size = qsec))
+p + geom_point(colour = "red", size = 3)
+
+
+p + geom_density()+theme(legend.position='none')
+p + geom_smooth(method="lm", se=FALSE)
+p + scale_y_continuous(breaks=seq(0, 420, 30)) +    # y축의 눈금표시 간격을 설정
+    scale_x_continuous(breaks=seq(0, 420, 15))      # x축의 눈금표시 간격을 설정
+
+ # 눈금의 라벨만 제거하고 싶다면 theme(axis.text.y=element_blank())(x축은 y대신 x)
+ # 양쪽 모두 제거하고 싶으면 theme(axis.ticks=element_blank()
+ # 눈금표시와 격자선 모두 제거하고 싶다면 breaks=NULL로 설정
+p+scale_y_continuous(breaks=NULL)
+
+# geom bar
+
+ggplot(t3, aes(지하철역, q, order(q))) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle=90))
+                                       + scale_y_continuous(name="월평균", labels=comma) +scale_x_discrete(limits=t3$지하철역)
+
+
+
+
+
+
+== mapping 과 Layer
+
+> ggplot(data=diamonds, aes(x=carat,y=price)) + geom_point(aes(colour=clarity)) + geom_smooth() # ---(1)
+
+> ggplot(data=diamonds, aes(x=carat,y=price, colour=clarity)) + geom_point() + geom_smooth() # ---(2)
+
+# 요소를 상속한 레이어 (좌) 와 재정의한 레이어 (우) 그래프, 같은 결과를 보여준다.
+
+# ggplot() 에서 colour 매핑을 시켰지만, geom_point 를 그리는 레이어에서 다시 색상을 설정한 경우 후자가 출력됨을 확인 
+
+> ggplot(data=diamonds, aes(x=carat,y=price, colour=clarity)) + geom_point(colour='darkblue')  
+
+
+
+
+== group 별 그래프
+
+> p <- ggplot(data=diamonds, aes(x=carat,y=price))
+> p + geom_smooth() # --- (1)
+> p + geom_smooth(aes(group=clarity)) # --- (2)
+
+
+#1
+alt.comparison=melt(comparison, id.vars="Date")
+
+names(alt.comparison)=c("Date","Index", "Price")
+
+ggplot(alt.comparison, aes(x=Date, y=Price, group=Index, color=Index))+ geom_point()+ geom_line()
+
+
+#2
+p=ggplot(alt.comparison, aes(x=Date, y=Price, gorup=Index, color=Index))+ geom_point()+ geom_line()
+print(p)
+
+
+#3
+
+> res <- ddply(market_price, .(M_TYPE_NAME, A_NAME), summarise, avg=mean(A_PRICE))
+> ggplot(res, aes(A_NAME, M_TYPE_NAME)) + geom_tile(aes(fill=avg)) + theme(axis.text.x=theme_text(angle=90, hjust=1)) + scale_fill_gradient(low="green", high="red")
+
+
+
+
+
+
+
+
+
+
+
+=================================================================================================[ ggplot2_2 ]
+
+== 위치 조정
+
+> ggplot(data=diamonds, aes(x=price)) + geom_bar(aes(fill=cut), binwidth=3000)
+
+
+> ggplot(data=diamonds, aes(x=price)) + geom_bar(aes(fill=cut), binwidth=3000, position="dodge")  
+# facet 으로 표현 가능
+> ggplot(data=diamonds, aes(x=price)) + geom_bar(binwidth=3000) + facet_grid( . ~ cut)
+> ggplot(data=diamonds, aes(x=price)) + geom_bar(binwidth=3000) + facet_wrap( ~ cut, nrow=3)
+
+
+> ggplot(data=diamonds, aes(x=price)) + geom_bar(aes(fill=cut), binwidth=3000, position="fill")
+
+== GEOM 과 STAT 의 결합
+
+> d <- ggplot(diamonds, aes(price))
+> d + stat_bin(geom="bar")
+> d + stat_bin(geom="area")
+> d + stat_bin(aes(size=..ndensity..),geom="point")
+> d + stat_bin(aes(y=1, fill=..density..),geom="tile")
+
+
+
+
+
+
+
+
+
+
+p  <- ggplot(c3, aes(x=leng, y=amt/10000, label= orderdate_4, colour=promotion ))
+p1  <- p + geom_point(size=1.0) + geom_text(size=2.0, check_overlap = TRUE) + xlab("일건수") + ylab("일거래액( 만원)")   
+p1
+
+
+# 주석 달기
+p + annotate("text", x=3, y=48, label="Group 1") + annotate("text", x=4.5, y=66, label="Group 2")
+p + annotate("text", x=3, y=48, label="Group 1", family="serif", fontface="italic", colour="darkred", size=3)
+  + annotate("text", x=4.5, y=66, label="Group 2", family="serif", fontface="italic", colour="darkred", size=3)
+
+
+
+
+
+
+
+
+
+
+
+
+=================================================================================================

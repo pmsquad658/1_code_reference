@@ -1,0 +1,514 @@
+## 창 분할
+par(mfrow=c(1,3))
+par(mfrow=c(1,1))
+
+## 작업디렉토리 설정
+setwd("C:/table/3. 프로모션 효과 분석/반디앤루니스")
+
+
+## csv인파일 , 형변환
+
+a1 <- read.csv("C_base.csv", header=T)
+write.csv(a1, "C_a1.csv")
+M4 <- as.matrix.data.frame(M3)
+M5 <- M4[, -1]
+colnames(mega_base) <- c('mertid', 'mertname','businessnumber','merttype','status','aa','rank','monamount','moncnt','month')
+names(alt.comparison)=c("Date","Index", "Price")
+
+
+
+## subset
+a1 <- subset(a1, select=c(mertid, mertname, businessnumber, month, monamount, moncnt))
+a2 <- subset(a1, 사업자등록번호=='7808700034')
+
+
+c2=subset(c1, !(Cult=="c52" & Date=="d21"))
+subset(prices, Date!=("2002-02-01")) 
+dji.prices=subset(dji.prices, Date>"2001-12-31")   # 필요 기간만 잘라내기
+dji.prices=subset(dji.prices, Date!="2002-02-01")
+
+subway2 <- subset(subway, subset = format(income_date, "%Y") != "2014")
+
+# sql 의 like 와 같은 것
+
+ww <- subset(w, month %in% c('June', 'July', 'August', 'September'))
+
+
+
+
+# 각 분할별로 데이터를 추출하는 데 사용. subset() 에 조건을 지정하면 그룹별로 조건을 만족하는 행만 추출된다.
+
+a2 <- subset(a1, select = c("transactionid", "amount","orderdate", "cardtype"))
+b1 <- subset(a2, cardtype == "81000"|cardtype == "81100"|cardtype == "81200"
+             |cardtype =="81300" |cardtype =="41000" |cardtype =="41100"|cardtype =="41200"|cardtype =="41300"|cardtype =="41800")
+
+
+
+
+## 형변환
+
+a1$month <- as.character(a1$month)
+df_data$sex_name <- factor(df_data$sex, levels = c(1, 2), labels = c("Male", "Female"))
+df_data$bmi_cate <- factor(df_data$bmi_cate, levels=c("체중부족", "정상", "과체중", "비만"), ordered=TRUE)
+weight_bmi_df <- as.data.frame(weight_bmi_prop)
+
+df_data$sex_name <- factor(df_data$sex, levels = c(1, 2), labels = c("Male", "Female"))
+
+
+# 형변환시 콤마값에 방해를 받을 때 해결법
+# 1차로 stringsAsFactors=FALSE 를 사용 안하는 것이 좋다.
+# 이렇게 해도 콤마값으로 방해를 받을 때 ( NAS introducing error)
+
+base <- rbind(a1, a2, a3, a4, a5)
+base1 <-base
+base$reqamount <- gsub(",","",base$reqamount)
+base$reqamount <- as.numeric(base$reqamount)
+
+
+
+
+## 중복제거
+dup <- duplicated(mert2$businessnumber) #False는 중복항들의 첫째항 또는 중복되지 않는 항
+mert3 <- mert2[!dup,] #사업자 등록번호 기준으로 중복제거
+
+unique(x)
+
+
+
+## 결측치 처리
+
+
+# 결측값 여부 확인, 행번호 초기화
+
+a1[!complete.cases(a1),]
+rownames(a1) <- NULL
+row.names(google) <- 1:733
+
+
+# 결측치 처리
+
+nrow(acs)
+acs1=na.omit(acs)
+
+acs2=na.omit(acs[c("EF","BMI")])
+
+barplot(na.count[na.count>0]) # 0이상인 데이터만 플로팅하기
+
+library(VIM)
+
+VIM::aggr(acs, prop=FALSE, numbers=TRUE)
+VIM::marginplot(acs[c("EF","BMI")], pch=20, col=c("darkgray", "red", "blue"))
+
+# 결측치 처리3
+# 빈 칸을 0으로 채우기. 데이터 프레임일 경우도 가능함
+
+w <- read.csv("/users/…/total1.csv", header=F)
+w[is.na(w)] <- 0
+AA$BB[is.na(AA$BB)] <- 0   
+
+
+
+
+
+
+
+
+
+
+## 날짜함수 사용
+
+a2$orderdate_2 <- substr(a2$orderdate, 5, 8)
+class(a2[ , "orderdate_2"]) <- "character"
+a2$orderdate_3 <- as.Date(a2[ , "orderdate_2"], format="%m%d")
+a2$orderdate_4 <- format(a2$orderdate_3, format="%b/%d")
+
+
+
+w$ts <- as.Date(w$V1, "%Y-%m-%d")
+
+w$month <- factor(format(w$ts, "%B"), levels=month.name)  # 날짜형식에서 월만 추출하기
+
+
+
+
+
+
+
+
+## 컬럼값을 소문자로 변환 전처리
+names(df_data) <- tolower(names(df_data))
+
+
+
+## 데이터 저장, load
+save(mert, mert_rank, file="merts.RData")   #R Data로 저장 & 불러오기
+load("merts.RData")
+
+
+
+## 필요 패키지
+library(RColorBrewer)
+
+
+## 테이블
+table(mert_rank$rank)
+bmi_prop <- prop.table(table(df_data$bmi_cate)) * 100
+
+
+
+## grep함수 사용하기
+
+grep("test", model.df$VALUE1)
+grep("^ap+", c("apple", "Apple", "apple2", "bbapple"), value=TRUE) ## 첫 글자가 ap로 시작하는 값을 찾아라
+grep("ap+", c("apple", "Apple", "apple2", "bbapple"), value=TRUE) ## ap라는 글자가 들어가는 값을 다 찾아라 
+grep("ap$", c("apple", "AAAap", "apple2", "bbapple"), value=TRUE) ## 마지막 끝나는 문자가 ap인 값을 찾으라
+grep("[1-3]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 1-3을 포함하는 모든 데이터를 출력
+grep("[[:digit:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 숫자를 포함하는 데이터를 모두 출력 
+grep("[[:lower:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 소문자를 포함하는 데이터를 전부 출력 
+grep("^[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 첫 글자가 대문자인 데이터를 전부 출력
+grep("[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 대문자를 포함하고 있는 데이터를 전부 출력
+
+
+## gsub 함수 사용하기
+
+# 너무 자주 쓰이는 단어, 숫자를 제거해줍니다.(날짜를 제거해줍니다.)
+fl <- gsub("년", "", fl)  
+fl <- gsub("0", "", fl); fl <- gsub("회원", "", fl); fl <- gsub("님", "", fl);
+
+
+
+=================================================================================[ 데이터프레임 ]
+
+# 필더링 방식 2가지
+
+df[df$ages >= 22, ]   # 나이가 22살 이상인 행만 추출  - NA값을 필터링 하지 못함
+subset(df, ages>=22)  # 나이가 22살 이상인 행만 추출  - NA값을 필터링 함
+
+
+# 인덱싱
+
+df[1:3,]     # df의 1~3행 추출
+df[1:3, 2]   # df의 1~3행, 2열 추출
+df[1:3, 2, drop=F]  # 차원축소 방지
+
+class(df[1:3, 2])
+class(df[1:3, 2, drop=F])
+
+
+
+# 접근
+
+# 리스트 방식의 접근
+df[[2]]
+df$ages
+
+# 행렬 방식의 접근
+df[1:3,]   # df의 1~3행 추출
+t3 <- t2[1:20,]
+
+
+# 정렬
+t2 <- t1[order(-t1$q),]
+
+mtcars <- mtcars[order(mtcars$mpg, -mtcars$hp), ]
+
+a3 <- a2[order(-a2$businessnumber,a2$month), ]   # 두개 다 decreasing 됨
+
+mtcars <- mtcars[order(rownames(mtcars)), ]
+
+# 상위 100 개만 추출
+
+total2 <- total[order(CntEmp),]
+total3 <- total2[1:100,]
+
+# sort 정렬 (추천하지 않음, 데이터를 직접 정렬)
+
+sort1 <- Fruits$Sales
+sort(sort1)
+sort(sort1, decreasing=T)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+================================================================================= apply 계열
+
+weight_bmi_sum <- apply(weight_bmi, 1, sum) # 행의 합을 구한다.
+
+apply(행렬 또는 배열,   margin(1 또는 2),   적용할 함수) 의 형태로 사용하며,
+                                                         Margin이 1이면 행에 2면 열에 함수를 적용한다.
+
+
+
+# lapply( )는 리스트에 apply함수를 적용하고 결과값을 리스트로 반환 할 수 있다.
+
+lapply(list1, mean)   # 리스트 각 벡터들의 평균를 리스트로 반환
+lapply(list1, max)    # 리스트 각 벡터들의 최대값을 리스트로 반환
+sapply(list1, mean)   # 리스트 각 벡터들의 평균을 벡터로 반환
+sapply(list1, min)    # 리스트 각 벡터들의 최소값을 벡터로 반환
+
+
+
+#  lapply( )를 데이터프레임에 적용할 때
+
+lapply(df, mean)   # 데이터프레임의 각 열의 평균을 구하고 결과를 리스트로 반환
+lapply(df, max)    # 데이터프레임의 각 열의 최대값을 구하고 결과를 리스트로 반환
+lapply(df, min)    # 데이터프레임의 각 열의 최소값을 구하고 결과를 리스트로 반환
+
+as.data.frame(lapply(df, mean))  # 데이터프레임의 형식을 유지하고 싶을 때 as.data.frame 이용
+
+
+
+
+##  rowSums( ), rowMeans( ), colSums( ), colMeans( ) 함수
+
+-- 행과 열이 있는 2차원 구조(행렬, 데이터프레임)에는 모두 적용할 수 있다.
+
+rowSums(df)     # 행의 합
+rowMeans(df)    # 행의 평균
+colSums(df)     # 열의 합
+colMeans(df)    # 열의 평균
+
+rowSums(df[,1:2])     # 행의 합
+rowMeans(df[,1:2])    # 행의 평균
+colSums(df[,1:2])     # 열의 합
+colMeans(df[,1:2])    # 열의 평균
+
+# tapply
+tapply(mert_rank$saleammount, mert_rank$rank, mean)
+tapply(mert_rank$saleammount, mert_rank$rank, sum)
+
+
+## aggregate 사용
+
+aggregate(market_price$A_PRICE, market_price[,c("M_TYPE_NAME","A_NAME")] , mean)
+aggregate( A_PRICE ~ M_GU_NAME + A_NAME, market_price, mean)
+
+
+ M_TYPE_NAME   A_NAME              x
+
+ 대형마트   고등어 1000
+ 대형마트   고등어(30cm,국산)    5335
+ 전통시장   고등어(30cm,국산)    2667
+ 대형마트   고등어(냉동,국산)    2825
+ 전통시장   고등어(냉동,국산)    3525
+ 대형마트   고등어(냉동,수입산)  1500
+
+
+==================================================================================
+
+
+
+================================================================================== plyr 패키지 사용
+
+ddply(market_price, .(M_TYPE_NAME, A_NAME), summarise, avg=mean(A_PRICE))
+
+a1 <- ddply(a1, .(businessnumber), transform, leng = length(businessnumber))
+ddply(c1, c("Cult", "Date"), summarise, Weight=mean(HeadWt), sd=sd(HeadWt), n=length(HeadWt)) 
+ddply(c1, c("Cult", "Date"), summarise, Weight=mean(HeadWt, na.rm=TRUE), sd=sd(HeadWt, na.rm=TRUE), n=sum(!is.na(HeadWt))) 
+c2s=ddply(c2, c("Cult", "Date"), summarise,Weight=mean(HeadWt, na.rm=TRUE), sd=sd(HeadWt, na.rm=TRUE), n=sum(!is.na(HeadWt)))
+c2b=ddply(c2, c("Cult", "Date"), .drop=FALSE, summarise, Weight=mean(HeadWt, na.rm=TRUE), sd=sd(HeadWt, na.rm=TRUE), n=sum(!is.na(HeadWt)))   # 빈 조합을 채우기 위해 drop=FALE
+
+t1 <- ddply(t, .(지하철역), summarize, q=round((sum(X07시.08시.승차인원)+sum(X08시.09시.승차인원)+sum(X09시.10시.승차인원))/14))
+
+
+
+# DJI값이 너무 높은 대신 우리가 만든 지수값이 낮으므로 scale함수를 써서 두 지수의 척도를 공통이 되도록 한다.
+
+comparison=transform(comparison, MarketIndex=scale(MarketIndex))
+
+comparison=transform(comparison, DJI=scale(DJI))
+
+# 여러 요약값을 구하고 싶다면 계속 나열
+head(ddply(baseball, .(id), summarise, minyear=min(year), maxyear=max(year))) 
+
+
+# 여러 변수로 그룹화 & 조건들로 그룹화 . 순서는 앞에서 부터
+ddply(iris, .(Species, Sepal.Length > 5.0), function(sub) { 
+                                                data.frame(sepal.width.mean=mean(sub$Sepal.Width))} )
+
+
+# 임의의 사용자 정의 함수 넘겨주기 연습
+
+
+ddply(baseball, .(id), function(sub) { mean(sub$g)} )
+
+
+# aggregate 함수를 써서 그룹별 집계
+
+p1 <- aggregate(V2 ~ month, data=ww, FUN=mean) # 두번째 열을 월 기준으로 묶어 평균을 냅니다
+
+
+
+
+
+==================================================================================
+
+
+
+## reshape2 패키지 사용
+
+date.stock.matrix=cast(prices, Date~Stock, value="Close")
+# cast함수에서는 사용할 열을 지정해야하는데 물결표 왼쪽 부분을 행으로, 뒷 부분을 열로 하는 행렬이 출력된다. 행렬의 실제 원소는 value인수로 지정
+
+
+## 반복문 사용
+
+
+
+#
+for (i in 1:42168) {
+  
+  if( a1$businessnumber[i] != a1$businessnumber[i+1] )
+    print(i+1)
+  
+}
+
+
+
+#
+for(i in 10:ncol(no.pres)){
+
+    no.pres[,i]=ifelse(no.pres[,i]>6, 0, no.pres[,i])
+
+    no.pres[,i]=ifelse(no.pres[,i]>0 & no.pres[,i]<4, 1, no.pres[,i])
+
+    no.pres[,i]=ifelse(no.pres[,i]>1, -1, no.pres[,i])
+
+  }
+
+  return(as.matrix(no.pres[,10:ncol(no.pres)]))
+
+  }
+
+rollcall.simple=lapply(rollcall.data, rollcall.simplified)
+
+
+
+=============================================================================[  데이터 핸들링 ]
+
+a<- rep(1, 20)
+x=seq(-10, 10, by=0.01)
+
+seq_along(x)
+NROW(x)
+prices[1,]
+
+# 일병 종가와 데이터 기록 날짜를 추출한다
+
+dji=with(dji.prices, rev(Close))
+
+dates=with(dji.prices, rev(Date))
+
+round(cor(x[y]),2)
+
+
+## 데이터프레임 생성
+
+ads.salse<-data.frame(round(salseamount/10000000))
+mert_fi2 <- mert_fi[-(1:8),]
+
+
+
+# seq, rep 사용
+
+ seq(from=12, to=30, by=3)
+ seq(12, 30, 3) #위의 코드와 같은 결과
+ x <- rep(8, 4)
+
+# 조건에 맞는 위치 찍어주기
+
+which(data >12, arr.ind = TRUE) # which가 위치를 나타내는 함수이고 그 위치를 matrix형태로 찍어주는 arr.ind= 옵션! 
+
+
+# 조건지정 출력
+iris[iris$Petal.Width > 2, c("Sepal.Length", "Sepal.Width")]
+iris[1:10,1:2]
+iris[c(1:10),]
+iris[1:10,]
+
+iris[which(iris$Species == "setosa"),"Species"]
+
+# 아래는 같은 값임
+
+ a <- iris[1:2]
+ b <- iris[,1:2]
+
+ a <- iris["Species"]
+ b <- iris[,"Species",drop=F]
+
+
+
+
+=================================================================================================
+libs <- c("ggplot2", "ggmap", "jsonlite")
+unlist(lapply(libs, require, character.only=TRUE))
+
+setwd("D:/R/자료/R실습_공개용/3.교통/Data")
+subway <- read.csv('subway.csv', header=TRUE, stringsAsFactors=FALSE)
+str(subway)
+
+
+class(subway[ , "income_date"])
+class(subway[ , "income_date"]) <- "character"
+
+
+subway[ , "income_date"] <- as.Date(subway[ , "income_date"], format="%Y%m%d")
+head(subway[ , "income_date"])
+
+
+# 년도를 중복제거하여 출력해 보기
+unique(format(subway[ , "income_date"], "%Y"))
+
+
+# 2014년도는 7월까지만 데이터가 있으므로 2014년을 제외한 데이터 프레임을 생성
+
+idx <- format(subway[ , "income_date"], "%Y") == "2014" 
+unique(format(subway[idx, "income_date"], "%m"))
+
+# subset() 함수는 subset= 조건에 맞는 자료를 추출.
+# 즉, format(income_date, "%Y") != "2014" 조건은 2014년이 아닌 자료만 데이터에 포함토록 함
+
+subway2 <- subset(subway, subset = format(income_date, "%Y") != "2014")
+
+# 역명을 확인
+# unique()는 중복된 값을 갖는 벡터에서 중복된 원소를 제거
+# sort()는 읶자를 순서대로 정렬(오름차순)하여 출력함
+
+
+sort(unique(subway[ , 'stat_name']))
+
+
+# grep("\\(", )는 묷자열에서 "("를 가지고 잇는 원소의 읶덱스를 추출
+# strsplit(x, pattern)은 pattern을 포함하는 묷자열 벡터 x에서 pattern의 묷자열을 기준으로 두 부분으로 나눔
+
+idx <- grep( "\\(" , subway2[ , "stat_name"] )
+unique(subway2[idx, "stat_name"])
+stat_name <- subway2[ , "stat_name"]
+tmp <- sapply(subway2[idx, "stat_name"], strsplit, "\\(", USE.NAMES=FALSE)
+tmp
+
+# sapply(df, FUN)는 데이터프레임 혹은 리스트읶 df의 각각의 원소에 FUN을 일괄적으로 적용하는 함수
+# ? 변수 stat_renamed는 역명곷 (노선)으로 분리핚 tmp에서 첫번째 원소읶 역명을 취함
+stat_renamed <- sapply(tmp, function(x) x[1])
+subway2[idx, "stat_name"] <- stat_renamed
+
+# 확인해보면 숫자가 제거된 것을 알 수 있다.
+unique(subway2[ , "stat_name"])
+
+# 분석 편의를 위해 연도와 월 컬럼을 생성함.
+year <- format(subway2[,"income_date"], "%Y") 
+month <- format(subway2[,"income_date"], "%m") 
+subway2 <- cbind(subway2, year, month)
+
+====================================================
