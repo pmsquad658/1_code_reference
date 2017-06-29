@@ -313,6 +313,7 @@ table(mert_rank$rank)
 bmi_prop <- prop.table(table(df_data$bmi_cate)) * 100
 
 #########################################################################
+test
 
 
 
