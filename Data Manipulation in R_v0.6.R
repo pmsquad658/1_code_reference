@@ -1,9 +1,9 @@
 ####################################################
 #### Data Manipulation in R ########################
-#-------------------- v0.3 _ by ¹Ú¹Î¼ö. 2017. 5. 13
+#-------------------- v0.6 _ by ë°•ë¯¼ìˆ˜. 2017. 6. 30
 
 
-##### ÃÊ±â setting ########################################
+##### ì´ˆê¸° setting ########################################
 
 # deletes all existing R objects in global space
 rm(list = c(ls()))  
@@ -13,7 +13,7 @@ rm(xDims, yDims, xMin, xMax)
 varname <- c("tmin")
 names(user.action.pca.base)
 names(allMoVals) <- c("scenario","variable","year","month","model","Value","yrMon","seas")
-names(df_data) <- tolower(names(df_data))  # ÄÃ·³°ªÀ» ¼Ò¹®ÀÚ·Î º¯È¯ ÀüÃ³¸®
+names(df_data) <- tolower(names(df_data))  # ì»¬ëŸ¼ê°’ì„ ì†Œë¬¸ìë¡œ ë³€í™˜ ì „ì²˜ë¦¬
 colnames(perf_mat) <- c("Naive Bayes", "LR with all variables", "LR with selected variables")
 rownames(perf_mat) <- c("TPR", "TNR", "ACC", "BCR")
 
@@ -26,7 +26,7 @@ write.csv(result_df, 'recommand_moview.csv', row.names=T)
 read.csv(sprintf("%s/%s/%s/data.tsv", base.dir, app.name, day),
          header = T, sep = "\t", stringsAsFactors = F)
 gloseri <- read.csv(file.choose(), header = T) # choose() 
-save(mert, mert_rank, file="merts.RData")   #R Data·Î ÀúÀå & ºÒ·¯¿À±â
+save(mert, mert_rank, file="merts.RData")   #R Dataë¡œ ì €ì¥ & ë¶ˆëŸ¬ì˜¤ê¸°
 load("merts.RData")
 
 # ronames null
@@ -39,13 +39,13 @@ summary(teens$age) # NA's 5523,
 table(teens$gender, useNA = "ifany")
 mean(teens$age, na.rm = T)
 
-# Áßº¹Á¦°Å 
+# ì¤‘ë³µì œê±° 
 unique(Cars93[, c("Origin", "Type")])
 
-dup <- duplicated(mert2$businessnumber) #False´Â Áßº¹Ç×µéÀÇ Ã¹Â°Ç× ¶Ç´Â Áßº¹µÇÁö ¾Ê´Â Ç×
-mert3 <- mert2[!dup,] #»ç¾÷ÀÚ µî·Ï¹øÈ£ ±âÁØÀ¸·Î Áßº¹Á¦°Å
+dup <- duplicated(mert2$businessnumber) #FalseëŠ” ì¤‘ë³µí•­ë“¤ì˜ ì²«ì§¸í•­ ë˜ëŠ” ì¤‘ë³µë˜ì§€ ì•ŠëŠ” í•­
+mert3 <- mert2[!dup,] #ì‚¬ì—…ì ë“±ë¡ë²ˆí˜¸ ê¸°ì¤€ìœ¼ë¡œ ì¤‘ë³µì œê±°
 
-# Á¤·Ä
+# ì •ë ¬
 ordered_val_perf <- val_perf[order(val_perf[,5], decreasing = TRUE),]
 
 # print, str
@@ -60,7 +60,7 @@ nCar <- dim(corolla)[1]
 nVar <- dim(corolla)[2]
 
 
-##### Çüº¯È¯ #########################################################
+##### í˜•ë³€í™˜ #########################################################
 
 ploan_data <- data.frame(ploan_input, ploan_target)
 RawPlant$Plant_Code <- as.character(RawPlant$Plant_Code)
@@ -81,10 +81,10 @@ datetime_3 # "2016-07-09 10:30:50 UTC"
 # factor, labels
 mtcars$tm=factor(mtcars$am,labels=c("automatic","manual"))
 df_data$sex_name <- factor(df_data$sex, levels = c(1, 2), labels = c("Male", "Female"))
-df_data$bmi_cate <- factor(df_data$bmi_cate, levels=c("Ã¼ÁßºÎÁ·", "Á¤»ó", "°úÃ¼Áß", "ºñ¸¸"), ordered=TRUE)
+df_data$bmi_cate <- factor(df_data$bmi_cate, levels=c("ì²´ì¤‘ë¶€ì¡±", "ì •ìƒ", "ê³¼ì²´ì¤‘", "ë¹„ë§Œ"), ordered=TRUE)
 df_data$sex_name <- factor(df_data$sex, levels = c(1, 2), labels = c("Male", "Female"))
 
-# format º¯°æ 
+# format ë³€ê²½ 
 dau.user.info.device.summary$log_date <- format(dau.user.info.device.summary$log_date, format="%m/%d/%Y")
 
 # class
@@ -92,30 +92,30 @@ class(a2[ , "orderdate_2"]) <- "character"
 
 
 
-##### °áÃø°ª Ã³¸® ################################################
+##### ê²°ì¸¡ê°’ ì²˜ë¦¬ ################################################
 
 d.complete <- na.omit(d)
 
 
-sum(is.na(Cars93))  # °áÃø°ªÀÇ °¹¼ö¸¦ È®ÀÎ(TRUE °¡ ³í¸®°ª 1ÀÌ¹Ç·Î)
-sum(is.na(Cars93$Rear.seat.room))   #ÄÃ·³º° °áÃø°ª °¹¼ö¸¦ È®ÀÎ
+sum(is.na(Cars93))  # ê²°ì¸¡ê°’ì˜ ê°¯ìˆ˜ë¥¼ í™•ì¸(TRUE ê°€ ë…¼ë¦¬ê°’ 1ì´ë¯€ë¡œ)
+sum(is.na(Cars93$Rear.seat.room))   #ì»¬ëŸ¼ë³„ ê²°ì¸¡ê°’ ê°¯ìˆ˜ë¥¼ í™•ì¸
 sum(is.na(Cars93$Luggage.room))
-colSums(is.na(Cars93))              #ÇÑ²¨¹ø¿¡ °áÃø°ª °¹¼ö È®ÀÎ
+colSums(is.na(Cars93))              #í•œêº¼ë²ˆì— ê²°ì¸¡ê°’ ê°¯ìˆ˜ í™•ì¸
 
 sum(x, na.rm = TRUE)
 mean(x, na.rm = TRUE)
 
 
-# Æ¯Á¤ÄÃ·³¿¡¼­ na °ª »èÁ¦
+# íŠ¹ì •ì»¬ëŸ¼ì—ì„œ na ê°’ ì‚­ì œ
 Cars93_2 <- Cars93[ complete.cases(Cars93[ , c("Rear.seat.room")]), ]
 Cars93_3 <- Cars93[ complete.cases(Cars93[ , c(23:24)]), ]
-sum(is.na(Cars93_3)) # °Ë»ç
+sum(is.na(Cars93_3)) # ê²€ì‚¬
 dim(Cars93_3)
 
-# °áÃø°ªÀ» ´Ù¸¥ °ªÀ¸·Î ´ëÃ¼
+# ê²°ì¸¡ê°’ì„ ë‹¤ë¥¸ ê°’ìœ¼ë¡œ ëŒ€ì²´
 Cars93_4$Luggage.room[is.na(Cars93_4$Luggage.room)] <- 0
 Cars93_5$Luggage.room[is.na(Cars93_5$Luggage.room)] <- mean(Cars93_5$Luggage.room, na.rm
-w[is.na(w)] <- 0 # list ÀÏ °æ¿ì 
+w[is.na(w)] <- 0 # list ì¼ ê²½ìš° 
                                                             
 #
 a1[!complete.cases(a1),]
@@ -123,16 +123,16 @@ a1[!complete.cases(a1),]
 # na.omit
 acs1=na.omit(acs)
 acs2=na.omit(acs[c("EF","BMI")])
-barplot(na.count[na.count>0]) # 0ÀÌ»óÀÎ µ¥ÀÌÅÍ¸¸ ÇÃ·ÎÆÃÇÏ±â
+barplot(na.count[na.count>0]) # 0ì´ìƒì¸ ë°ì´í„°ë§Œ í”Œë¡œíŒ…í•˜ê¸°
 
 
-##### ¼ıÀÚÃ³¸® ########################################################
+##### ìˆ«ìì²˜ë¦¬ ########################################################
 limits <- c(0, max(dau.user.info.device.summary$dau))                                                            
 
 
 
 
-##### ¹®ÀÚÃ³¸® ########################################################
+##### ë¬¸ìì²˜ë¦¬ ########################################################
 
 # substr, regexpr, paste, sub
 Flag1 <- regexpr(" ",SPlist$SciName) # position of first space
@@ -156,28 +156,28 @@ gsub("hat","lov",x)
 
 
 str <- c("Regular", "expression", "examples of R language")
-x <- sub("x.ress","",str) # Á¡(.) <=> Any character, except \n or line terminator
+x <- sub("x.ress","",str) # ì (.) <=> Any character, except \n or line terminator
 
-# %in% »ç¿ë
+# %in% ì‚¬ìš©
 SpeciesLookup[!as.character(SpeciesLookup$Plant_Code)%in%
                 as.character(ROMO_SPlist$Plant_Code),]
 
 SpeciesLookup[SpeciesLookup$SCINAME%in%Test$SCINAME,]
 
-# grepÇÔ¼ö »ç¿ëÇÏ±â
+# grepí•¨ìˆ˜ ì‚¬ìš©í•˜ê¸°
 
 grep("test", model.df$VALUE1)
-grep("^ap+", c("apple", "Apple", "apple2", "bbapple"), value=TRUE) ## Ã¹ ±ÛÀÚ°¡ ap·Î ½ÃÀÛÇÏ´Â °ªÀ» Ã£¾Æ¶ó
-grep("ap+", c("apple", "Apple", "apple2", "bbapple"), value=TRUE) ## ap¶ó´Â ±ÛÀÚ°¡ µé¾î°¡´Â °ªÀ» ´Ù Ã£¾Æ¶ó 
-grep("ap$", c("apple", "AAAap", "apple2", "bbapple"), value=TRUE) ## ¸¶Áö¸· ³¡³ª´Â ¹®ÀÚ°¡ apÀÎ °ªÀ» Ã£À¸¶ó
-grep("[1-3]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 1-3À» Æ÷ÇÔÇÏ´Â ¸ğµç µ¥ÀÌÅÍ¸¦ Ãâ·Â
-grep("[[:digit:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ¼ıÀÚ¸¦ Æ÷ÇÔÇÏ´Â µ¥ÀÌÅÍ¸¦ ¸ğµÎ Ãâ·Â 
-grep("[[:lower:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ¼Ò¹®ÀÚ¸¦ Æ÷ÇÔÇÏ´Â µ¥ÀÌÅÍ¸¦ ÀüºÎ Ãâ·Â 
-grep("^[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## Ã¹ ±ÛÀÚ°¡ ´ë¹®ÀÚÀÎ µ¥ÀÌÅÍ¸¦ ÀüºÎ Ãâ·Â
-grep("[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ´ë¹®ÀÚ¸¦ Æ÷ÇÔÇÏ°í ÀÖ´Â µ¥ÀÌÅÍ¸¦ ÀüºÎ Ãâ·Â
+grep("^ap+", c("apple", "Apple", "apple2", "bbapple"), value=TRUE) ## ì²« ê¸€ìê°€ apë¡œ ì‹œì‘í•˜ëŠ” ê°’ì„ ì°¾ì•„ë¼
+grep("ap+", c("apple", "Apple", "apple2", "bbapple"), value=TRUE) ## apë¼ëŠ” ê¸€ìê°€ ë“¤ì–´ê°€ëŠ” ê°’ì„ ë‹¤ ì°¾ì•„ë¼ 
+grep("ap$", c("apple", "AAAap", "apple2", "bbapple"), value=TRUE) ## ë§ˆì§€ë§‰ ëë‚˜ëŠ” ë¬¸ìê°€ apì¸ ê°’ì„ ì°¾ìœ¼ë¼
+grep("[1-3]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 1-3ì„ í¬í•¨í•˜ëŠ” ëª¨ë“  ë°ì´í„°ë¥¼ ì¶œë ¥
+grep("[[:digit:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ìˆ«ìë¥¼ í¬í•¨í•˜ëŠ” ë°ì´í„°ë¥¼ ëª¨ë‘ ì¶œë ¥ 
+grep("[[:lower:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ì†Œë¬¸ìë¥¼ í¬í•¨í•˜ëŠ” ë°ì´í„°ë¥¼ ì „ë¶€ ì¶œë ¥ 
+grep("^[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ì²« ê¸€ìê°€ ëŒ€ë¬¸ìì¸ ë°ì´í„°ë¥¼ ì „ë¶€ ì¶œë ¥
+grep("[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## ëŒ€ë¬¸ìë¥¼ í¬í•¨í•˜ê³  ìˆëŠ” ë°ì´í„°ë¥¼ ì „ë¶€ ì¶œë ¥
 
 
-##### ³¯Â¥ Ã³¸® ######################################################
+##### ë‚ ì§œ ì²˜ë¦¬ ######################################################
 year <- format(subway2[,"income_date"], "%Y") 
 month <- format(subway2[,"income_date"], "%m") 
 subway2 <- cbind(subway2, year, month)
@@ -191,7 +191,7 @@ a2$orderdate_4 <- format(a2$orderdate_3, format="%b/%d")
 
 w$ts <- as.Date(w$V1, "%Y-%m-%d")
 
-w$month <- factor(format(w$ts, "%B"), levels=month.name)  # ³¯Â¥Çü½Ä¿¡¼­ ¿ù¸¸ ÃßÃâÇÏ±â
+w$month <- factor(format(w$ts, "%B"), levels=month.name)  # ë‚ ì§œí˜•ì‹ì—ì„œ ì›”ë§Œ ì¶”ì¶œí•˜ê¸°
                                                             
 ##### Culculation ####################################################
 perf_mat[4,2] <- mean(abs((val_data$Price-forward_haty)/val_data$Price))*100
@@ -201,25 +201,25 @@ perf_mat[4,2] <- mean(abs((val_data$Price-forward_haty)/val_data$Price))*100
 
 ##### data handling ##################################################
 
-# ÃßÃâ_ subset
+# ì¶”ì¶œ_ subset
 
 a1 <- subset(a1, select=c(mertid, mertname, businessnumber, month, monamount, moncnt))
-a2 <- subset(a1, »ç¾÷ÀÚµî·Ï¹øÈ£=='7808700034')
+a2 <- subset(a1, ì‚¬ì—…ìë“±ë¡ë²ˆí˜¸=='7808700034')
 c2=subset(c1, !(Cult=="c52" & Date=="d21"))
 movie_long <- subset(movie_long, rating != 0)
 subset(prices, Date!=("2002-02-01")) 
-dji.prices=subset(dji.prices, Date>"2001-12-31")   # ÇÊ¿ä ±â°£¸¸ Àß¶ó³»±â
+dji.prices=subset(dji.prices, Date>"2001-12-31")   # í•„ìš” ê¸°ê°„ë§Œ ì˜ë¼ë‚´ê¸°
 dji.prices=subset(dji.prices, Date!="2002-02-01")
 subway2 <- subset(subway, subset = format(income_date, "%Y") != "2014")
-ww <- subset(w, month %in% c('June', 'July', 'August', 'September')) # sql ÀÇ like ¿Í °°Àº °Í
+ww <- subset(w, month %in% c('June', 'July', 'August', 'September')) # sql ì˜ like ì™€ ê°™ì€ ê²ƒ
 
 
-# °¢ ºĞÇÒº°·Î µ¥ÀÌÅÍ¸¦ ÃßÃâÇÏ´Â µ¥ »ç¿ë. subset() ¿¡ Á¶°ÇÀ» ÁöÁ¤ÇÏ¸é ±×·ìº°·Î Á¶°ÇÀ» ¸¸Á·ÇÏ´Â Çà¸¸ ÃßÃâµÈ´Ù.
+# ê° ë¶„í• ë³„ë¡œ ë°ì´í„°ë¥¼ ì¶”ì¶œí•˜ëŠ” ë° ì‚¬ìš©. subset() ì— ì¡°ê±´ì„ ì§€ì •í•˜ë©´ ê·¸ë£¹ë³„ë¡œ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” í–‰ë§Œ ì¶”ì¶œëœë‹¤.
 a2 <- subset(a1, select = c("transactionid", "amount","orderdate", "cardtype"))
 b1 <- subset(a2, cardtype == "81000"|cardtype == "81100"|cardtype == "81200"
              |cardtype =="81300" |cardtype =="41000" |cardtype =="41100"|cardtype =="41200"|cardtype =="41300"|cardtype =="41800")
 
-## IF ELSE ¹® »ç¿ë
+## IF ELSE ë¬¸ ì‚¬ìš©
 
 ifelse (AA == BB, "XX", "YY")
 AA$BB <- ifelse(AA$CC == AA$DD , "install" , "existing")
@@ -228,13 +228,13 @@ teens$age <- ifelse(teens$age >= 13 & teens$age < 20, teens$age, NA)
 
 
 
-##### data.frame »ç¿ë ################################################
+##### data.frame ì‚¬ìš© ################################################
 
 # select value
 c2 <- a1[a1$Cult=="c52" & a1$Date=="d21",]
 c2 <- price[price$Date!="2002-02-01",] 
-dji.prices <- dji.prices[dji.prices$Date>"2001-12-31",]   # ÇÊ¿ä ±â°£¸¸ Àß¶ó³»±â
-subway2 <- subway2[format(subway2$income_date, "%Y") != "2014"),] # µÇ´ÂÁö´Â È®ÀÎ
+dji.prices <- dji.prices[dji.prices$Date>"2001-12-31",]   # í•„ìš” ê¸°ê°„ë§Œ ì˜ë¼ë‚´ê¸°
+subway2 <- subway2[format(subway2$income_date, "%Y") != "2014"),] # ë˜ëŠ”ì§€ëŠ” í™•ì¸
 # subway2 <- subset(subway, subset = format(income_date, "%Y") != "2014")
 wdbc_train_y <- wdbc[idx, 1]                                                            
                                                             
@@ -247,10 +247,10 @@ ploan_input <- ploan[,input_idx]
                                                             
 model_ins$fitted.values[1:5]
 
-# Á¤·Ä
+# ì •ë ¬
 t2 <- t1[order(-t1$q),]
 mtcars <- mtcars[order(mtcars$mpg, -mtcars$hp), ]
-a3 <- a2[order(-a2$businessnumber,a2$month), ]   # µÎ°³ ´Ù decreasing µÊ
+a3 <- a2[order(-a2$businessnumber,a2$month), ]   # ë‘ê°œ ë‹¤ decreasing ë¨
 mtcars <- mtcars[order(rownames(mtcars)), ]
 
 
@@ -267,11 +267,11 @@ dat$Cntr <- ifelse( dat$Country == "Canada", "CAN", "USA")
 dau2$is.payment <- ifelse(is.na(dau2$payment), 0, 1)
 dau.install.payment$log_month <-substr(dau.install.payment$log_date, 1, 7)
 
-# ÀÎµ¦½Ì
+# ì¸ë±ì‹±
 
-df[1:3,]     # dfÀÇ 1~3Çà ÃßÃâ
-df[1:3, 2]   # dfÀÇ 1~3Çà, 2¿­ ÃßÃâ
-df[1:3, 2, drop=F]  # Â÷¿øÃà¼Ò ¹æÁö
+df[1:3,]     # dfì˜ 1~3í–‰ ì¶”ì¶œ
+df[1:3, 2]   # dfì˜ 1~3í–‰, 2ì—´ ì¶”ì¶œ
+df[1:3, 2, drop=F]  # ì°¨ì›ì¶•ì†Œ ë°©ì§€
 
 class(df[1:3, 2])
 class(df[1:3, 2, drop=F])
@@ -286,25 +286,25 @@ interests_n <- as.data.frame(lapply(interests, scale))   # interests : data.fram
                                                             
 ##### Using plyr ######################################################
 
-# ddply »ç¿ëÇÏ¿© Áı°èÇÏ±â
-# user_id ¸¦ freq º¯¼ö·Î µÎ°í, is.goal À» 0,1 ·Î µÎ¾î sum ÇßÀ» ¶§ 1¸¸ Áı°èµÇµµ·Ï ÇÔ
+# ddply ì‚¬ìš©í•˜ì—¬ ì§‘ê³„í•˜ê¸°
+# user_id ë¥¼ freq ë³€ìˆ˜ë¡œ ë‘ê³ , is.goal ì„ 0,1 ë¡œ ë‘ì–´ sum í–ˆì„ ë•Œ 1ë§Œ ì§‘ê³„ë˜ë„ë¡ í•¨
 ddply(AA, .(test_case), summarize, cvr=sum(is.goal)/length(user_id))
 
 
 mau.payment <- ddply(dau.install.payment,
-                     .(log_month, user_id, install_month), # ±×·ìÈ­
-                     summarize, # Áı°è ¸í·É
-                     payment = sum(payment) # payment ÇÕ°è
+                     .(log_month, user_id, install_month), # ê·¸ë£¹í™”
+                     summarize, # ì§‘ê³„ ëª…ë ¹
+                     payment = sum(payment) # payment í•©ê³„
 )
 
-# ³¯Â¥º°, Å×½ºÆ® ÄÉÀÌ½ºº°·Î Å¬¸¯À²À» »êÃâÇÏ±â
+# ë‚ ì§œë³„, í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ë³„ë¡œ í´ë¦­ìœ¨ì„ ì‚°ì¶œí•˜ê¸°
 ab.test.imp.summary <-
   ddply(ab.test.imp, .(log_date, test_case), summarize,
         imp=length(user_id),
         cv=sum(is.goal),
         cvr=sum(is.goal)/length(user_id))
 
-# ±âÅ¸ 
+# ê¸°íƒ€ 
 mau <- ddply(dau2, .(log_month, user_id), summarize, payment = sum(payment),
              access_days = length(log_date))
 
@@ -334,7 +334,7 @@ mlr_data <- cbind(corolla[,-c(id_idx, category_idx)], Fuel)
 
 
 
-##### Áı°è&ºĞ¼® ±âº» ####################################################
+##### ì§‘ê³„&ë¶„ì„ ê¸°ë³¸ ####################################################
 
 table(user.action.km$cluster)
 cm_full <- table(full_target, full_predicted)                                                            
@@ -351,17 +351,17 @@ table(mert_rank$rank)
 bmi_prop <- prop.table(table(df_data$bmi_cate)) * 100
 mean(teens$age, na.rm = T)                                                            
 
-# ave(±âÁØº¯¼ö, Áı´Üº¯¼ö, FUNC = mean())
+# ave(ê¸°ì¤€ë³€ìˆ˜, ì§‘ë‹¨ë³€ìˆ˜, FUNC = mean())
 ave(df$x, df$y, FUN = function(x) mean(x, na.rm = T))
-# - Á¹¾÷³âµµ ±âÁØÀ¸·Î ³ªÀÌ Æò±Õ °è»ê ÇØ¼­ NA °ªÀ» Ã¤¿ì±â 
+# - ì¡¸ì—…ë…„ë„ ê¸°ì¤€ìœ¼ë¡œ ë‚˜ì´ í‰ê·  ê³„ì‚° í•´ì„œ NA ê°’ì„ ì±„ìš°ê¸° 
 avg <- ave(teens$age, teens$gradyear, FUN=function(x) mean(x, na.rm =T))    
 teens$age <- ifelse(is.na(teens$age), avg, teens$age)
 
 # aggregate
            
-# ±ºÁıº° Æò±Õ ³ªÀÌ
+# êµ°ì§‘ë³„ í‰ê·  ë‚˜ì´
 aggregate(data = teens, age ~ cluster, mean)         
-# ±ºÁıº° ¿©¼º ºñÀ² - ¿©¼º ºñÀ²ÀÌ ¿ùµîÀÌ ³ôÀ½ 
+# êµ°ì§‘ë³„ ì—¬ì„± ë¹„ìœ¨ - ì—¬ì„± ë¹„ìœ¨ì´ ì›”ë“±ì´ ë†’ìŒ 
 aggregate(data = teens, gender=='F' ~ cluster, mean)           
            
            
@@ -372,12 +372,12 @@ for(i in k){
   pred <- knn(wdbc_train, wdbc_test, wdbc_train_y, k=i)
   t <- table(pred, wdbc_test_y)
   acc[cnt] <- (t[1,1]+t[2,2]) / sum(t)
-  cat('ºĞ·ùÁ¤È®µµ', acc[cnt], '\n')
-  cnt <- cnt +1 # Ä«¿îÅÍ 
+  cat('ë¶„ë¥˜ì •í™•ë„', acc[cnt], '\n')
+  cnt <- cnt +1 # ì¹´ìš´í„° 
 }
 
 acc # 21
-sort(acc, decreasing = T) # ³»¸²Â÷¼ø 
+sort(acc, decreasing = T) # ë‚´ë¦¼ì°¨ìˆœ 
 # [1] 0.9590643 0.9590643 0.9590643
 # k = 6
 
@@ -387,7 +387,7 @@ first
 for(i in k){
   if(acc[i-4] >= first) {
     cat('k=', i)
-    cat(', ºĞ·ùÁ¤È®µµ', acc[i-4], '\n')
+    cat(', ë¶„ë¥˜ì •í™•ë„', acc[i-4], '\n')
   }
 }
 
