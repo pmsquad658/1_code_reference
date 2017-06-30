@@ -52,6 +52,8 @@ str(nc)
 class(wdbc_x)
 nrow(wdbc_x)
 dim(wdbc_train)
+nCar <- dim(corolla)[1]
+nVar <- dim(corolla)[2]
 
 
 ##### 형변환 #########################################################
@@ -121,7 +123,7 @@ barplot(na.count[na.count>0]) # 0이상인 데이터만 플로팅하기
 
 
 ##### 숫자처리 ########################################################
-limits <- c(0, max(dau.user.info.device.summary$dau))
+limits <- c(0, max(dau.user.info.device.summary$dau))                                                            
 
 
 
@@ -135,6 +137,7 @@ Remainder <- substr(SPlist$SciName,Flag1 + 1,nchar(SPlist$SciName))
 Flag2 <-  regexpr(" ",Remainder) 
 Species <- substr(Remainder,1,Flag2 - 1)
 SPlist$GenSp <- paste(Genus, Species, sep=" ")
+tmp_x <- paste(colnames(trn_data)[-1], collapse=" + ")                                                            
 outFile <- substr(files[nF], 1, nchar(files[nF])-3)
 outFileName = paste("d:/R/raster webinar/webinar_CMIP-A2-", dte,".csv", sep="")
 
@@ -185,6 +188,10 @@ a2$orderdate_4 <- format(a2$orderdate_3, format="%b/%d")
 w$ts <- as.Date(w$V1, "%Y-%m-%d")
 
 w$month <- factor(format(w$ts, "%B"), levels=month.name)  # 날짜형식에서 월만 추출하기
+                                                            
+##### Culculation ####################################################
+perf_mat[4,2] <- mean(abs((val_data$Price-forward_haty)/val_data$Price))*100
+                                                            
 
 
 
@@ -264,7 +271,8 @@ class(df[1:3, 2])
 class(df[1:3, 2, drop=F])
                                                             
 # which statement
-full_predicted[which(full_response >= 0.5)] <- 1                                                            
+full_predicted[which(full_response >= 0.5)] <- 1
+p_idx <- which(corolla$Fuel_Type == "Petrol")                                                            
 
 
 ##### Using plyr ######################################################
@@ -311,7 +319,8 @@ ab.test.imp <- merge(ab.test.imp, ab.test.goal, by="transaction_id", all.x=T, su
 # rbind, cbind
 ploan.trn <- cbind(ploan.x[trn_idx,], ploanYN = ploan.y[trn_idx,])
 ploan.val <- cbind(ploan.x[-trn_idx,], ploanYN = ploan.y[-trn_idx,])
-ploan.all <- rbind(ploan.trn, ploan.val)                                                            
+ploan.all <- rbind(ploan.trn, ploan.val)   
+mlr_data <- cbind(corolla[,-c(id_idx, category_idx)], Fuel)                                                            
 
 
 
@@ -363,52 +372,3 @@ for(i in k){
 }
 
 }
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
