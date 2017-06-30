@@ -1,7 +1,6 @@
 ####################################################
 #### Data Manipulation in R ########################
-#################### v0.1 _ by 박민수. 2017. 5. 13##
-####################################################
+#-------------------- v0.1 _ by 박민수. 2017. 5. 13
 
 
 ##### 초기 setting ########################################
@@ -15,6 +14,8 @@ varname <- c("tmin")
 names(user.action.pca.base)
 names(allMoVals) <- c("scenario","variable","year","month","model","Value","yrMon","seas")
 names(df_data) <- tolower(names(df_data))  # 컬럼값을 소문자로 변환 전처리
+colnames(perf_mat) <- c("Naive Bayes", "LR with all variables", "LR with selected variables")
+rownames(perf_mat) <- c("TPR", "TNR", "ACC", "BCR")
 
 
 # infile, outfile
@@ -41,7 +42,7 @@ dup <- duplicated(mert2$businessnumber) #False는 중복항들의 첫째항 또�
 mert3 <- mert2[!dup,] #사업자 등록번호 기준으로 중복제거
 
 # 정렬
-
+ordered_val_perf <- val_perf[order(val_perf[,5], decreasing = TRUE),]
 
 # print, str
 print(nc)
@@ -55,14 +56,14 @@ dim(wdbc_train)
 
 ##### 형변환 #########################################################
 
-
+ploan_data <- data.frame(ploan_input, ploan_target)
 RawPlant$Plant_Code <- as.character(RawPlant$Plant_Code)
+ploan_target <- as.numeric(ploan_target)-1
 movie_real <- as(movie_real, "matrix")
 recom_result <- as(recomm_list,"list")
 RawPlant$Plant_Code <- gsub(" ","",RawPlant$Plant_Code) # get rid of spaces
 weight_bmi_df <- as.data.frame(weight_bmi_prop)
-
-
+ploan_target <- as.factor(ploan[,target_idx])
 number_3 <- as.character(number)
 datetime_3 <- as.POSIXlt(number_3, # character
                          format = '%Y%m%d%H%M%S', 
@@ -229,6 +230,8 @@ ww <- w[w$month %in% c('June', 'July', 'August', 'September'),]
 trainSet <- movie_real[c(2:5),]
 training_ins = insurance[idx, ]
 testing_ins = insurance[-idx, ]                                                            
+ploan_input <- ploan[,input_idx]    
+                                                            
 model_ins$fitted.values[1:5]
 
 # 정렬
@@ -259,6 +262,9 @@ df[1:3, 2, drop=F]  # 차원축소 방지
 
 class(df[1:3, 2])
 class(df[1:3, 2, drop=F])
+                                                            
+# which statement
+full_predicted[which(full_response >= 0.5)] <- 1                                                            
 
 
 ##### Using plyr ######################################################
@@ -301,6 +307,11 @@ dau2 <- merge(dau, dpu[, c("log_date", "user_id", "payment"),],
               by = c("log_date", "user_id"), all.x = T)
 
 ab.test.imp <- merge(ab.test.imp, ab.test.goal, by="transaction_id", all.x=T, suffixes=c("",".g"))
+                                                            
+# rbind, cbind
+ploan.trn <- cbind(ploan.x[trn_idx,], ploanYN = ploan.y[trn_idx,])
+ploan.val <- cbind(ploan.x[-trn_idx,], ploanYN = ploan.y[-trn_idx,])
+ploan.all <- rbind(ploan.trn, ploan.val)                                                            
 
 
 
@@ -308,6 +319,7 @@ ab.test.imp <- merge(ab.test.imp, ab.test.goal, by="transaction_id", all.x=T, su
 ##### 집계&분석 기본 ####################################################
 
 table(user.action.km$cluster)
+cm_full <- table(full_target, full_predicted)                                                            
 summary(user.action.pca.base)
 summary(wdbc[,c(2:31)])                                                            
 table(dau.user.info[, c("log_month", "gender")])
