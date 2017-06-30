@@ -1,6 +1,6 @@
 ####################################################
 #### Data Manipulation in R ########################
-#-------------------- v0.1 _ by 박민수. 2017. 5. 13
+#-------------------- v0.3 _ by 박민수. 2017. 5. 13
 
 
 ##### 초기 setting ########################################
@@ -219,6 +219,8 @@ b1 <- subset(a2, cardtype == "81000"|cardtype == "81100"|cardtype == "81200"
 
 ifelse (AA == BB, "XX", "YY")
 AA$BB <- ifelse(AA$CC == AA$DD , "install" , "existing")
+teens$age <- ifelse(teens$age >= 13 & teens$age < 20, teens$age, NA)
+   
 
 
 
