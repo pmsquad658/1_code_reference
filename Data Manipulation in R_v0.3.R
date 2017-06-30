@@ -278,9 +278,12 @@ class(df[1:3, 2, drop=F])
                                                             
 # which statement
 full_predicted[which(full_response >= 0.5)] <- 1
-p_idx <- which(corolla$Fuel_Type == "Petrol")                                                            
-
-
+p_idx <- which(corolla$Fuel_Type == "Petrol")
+                                                            
+# lapply
+interests_n <- as.data.frame(lapply(interests, scale))   # interests : data.frame
+                                                            
+                                                            
 ##### Using plyr ######################################################
 
 # ddply 사용하여 집계하기
@@ -353,6 +356,13 @@ ave(df$x, df$y, FUN = function(x) mean(x, na.rm = T))
 # - 졸업년도 기준으로 나이 평균 계산 해서 NA 값을 채우기 
 avg <- ave(teens$age, teens$gradyear, FUN=function(x) mean(x, na.rm =T))    
 teens$age <- ifelse(is.na(teens$age), avg, teens$age)
+
+# aggregate
+           
+# 군집별 평균 나이
+aggregate(data = teens, age ~ cluster, mean)         
+# 군집별 여성 비율 - 여성 비율이 월등이 높음 
+aggregate(data = teens, gender=='F' ~ cluster, mean)           
            
            
 #### Using FOR Statement ################################################
