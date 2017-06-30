@@ -21,9 +21,10 @@ names(df_data) <- tolower(names(df_data))  # 컬럼값을 소문자로 변환 �
 dau <- read.csv("section3-dau.csv", header = T, stringsAsFactors = F)
 outFileName = paste("d:/R/raster webinar/webinar_CMIP-A2-", dte,".csv", sep="")
 write.csv(allMoVals, file = outFileName, row.names=FALSE)
+write.csv(result_df, 'recommand_moview.csv', row.names=T)
 read.csv(sprintf("%s/%s/%s/data.tsv", base.dir, app.name, day),
          header = T, sep = "\t", stringsAsFactors = F)
-
+gloseri <- read.csv(file.choose(), header = T) # choose() 
 save(mert, mert_rank, file="merts.RData")   #R Data로 저장 & 불러오기
 load("merts.RData")
 
@@ -39,17 +40,25 @@ unique(Cars93[, c("Origin", "Type")])
 dup <- duplicated(mert2$businessnumber) #False는 중복항들의 첫째항 또는 중복되지 않는 항
 mert3 <- mert2[!dup,] #사업자 등록번호 기준으로 중복제거
 
+# 정렬
+
+
 # print, str
 print(nc)
 str(nc)
 
-############################################################################
+##### Explore #######################################################
+class(wdbc_x)
+nrow(wdbc_x)
+dim(wdbc_train)
 
 
 ##### 형변환 #########################################################
 
 
 RawPlant$Plant_Code <- as.character(RawPlant$Plant_Code)
+movie_real <- as(movie_real, "matrix")
+recom_result <- as(recomm_list,"list")
 RawPlant$Plant_Code <- gsub(" ","",RawPlant$Plant_Code) # get rid of spaces
 weight_bmi_df <- as.data.frame(weight_bmi_prop)
 
@@ -73,10 +82,6 @@ dau.user.info.device.summary$log_date <- format(dau.user.info.device.summary$log
 
 # class
 class(a2[ , "orderdate_2"]) <- "character"
-
-
-############################################################################
-
 
 
 
@@ -113,8 +118,6 @@ acs1=na.omit(acs)
 acs2=na.omit(acs[c("EF","BMI")])
 barplot(na.count[na.count>0]) # 0이상인 데이터만 플로팅하기
 
-
-############################################################################
 
 ##### 숫자처리 ########################################################
 limits <- c(0, max(dau.user.info.device.summary$dau))
@@ -165,7 +168,6 @@ grep("[[:lower:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=T
 grep("^[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 첫 글자가 대문자인 데이터를 전부 출력
 grep("[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 대문자를 포함하고 있는 데이터를 전부 출력
 
-############################################################################
 
 ##### 날짜 처리 ######################################################
 year <- format(subway2[,"income_date"], "%Y") 
@@ -187,11 +189,12 @@ w$month <- factor(format(w$ts, "%B"), levels=month.name)  # 날짜형식에서 �
 
 ##### data handling ##################################################
 
-# 추출
+# 추출_ subset
 
 a1 <- subset(a1, select=c(mertid, mertname, businessnumber, month, monamount, moncnt))
 a2 <- subset(a1, 사업자등록번호=='7808700034')
 c2=subset(c1, !(Cult=="c52" & Date=="d21"))
+movie_long <- subset(movie_long, rating != 0)
 subset(prices, Date!=("2002-02-01")) 
 dji.prices=subset(dji.prices, Date>"2001-12-31")   # 필요 기간만 잘라내기
 dji.prices=subset(dji.prices, Date!="2002-02-01")
@@ -217,12 +220,16 @@ AA$BB <- ifelse(AA$CC == AA$DD , "install" , "existing")
 c2 <- a1[a1$Cult=="c52" & a1$Date=="d21",]
 c2 <- price[price$Date!="2002-02-01",] 
 dji.prices <- dji.prices[dji.prices$Date>"2001-12-31",]   # 필요 기간만 잘라내기
-
 subway2 <- subway2[format(subway2$income_date, "%Y") != "2014"),] # 되는지는 확인
 # subway2 <- subset(subway, subset = format(income_date, "%Y") != "2014")
-
+wdbc_train_y <- wdbc[idx, 1]                                                            
+                                                            
+result <- terms[str_length(terms) >= 5 & str_length(terms) <= 6]
 ww <- w[w$month %in% c('June', 'July', 'August', 'September'),]
-
+trainSet <- movie_real[c(2:5),]
+training_ins = insurance[idx, ]
+testing_ins = insurance[-idx, ]                                                            
+model_ins$fitted.values[1:5]
 
 # 정렬
 t2 <- t1[order(-t1$q),]
@@ -231,9 +238,10 @@ a3 <- a2[order(-a2$businessnumber,a2$month), ]   # 두개 다 decreasing 됨
 mtcars <- mtcars[order(rownames(mtcars)), ]
 
 
-# insert value
+# insert value                                                           
 allMoVals[,7] <- (allMoVals[,3] + (allMoVals[,4]*0.0833)-0.0416)   # decimal yr.month
 allMoVals[which(allMoVals[,4]==1 | allMoVals[,4]==2 | allMoVals[,4]==12), 8] <- "Win"
+weather_df$RainTomorrow[weather_df$RainTomorrow=='Yes'] <- 1                                                            
 RawPlant$WithinPlot[RawPlant$WithinPlot==0] <- 0.1
 xMin = nc$dim$longitude$vals[1]
 
@@ -251,8 +259,6 @@ df[1:3, 2, drop=F]  # 차원축소 방지
 
 class(df[1:3, 2])
 class(df[1:3, 2, drop=F])
-
-############################################################################
 
 
 ##### Using plyr ######################################################
@@ -303,7 +309,9 @@ ab.test.imp <- merge(ab.test.imp, ab.test.goal, by="transaction_id", all.x=T, su
 
 table(user.action.km$cluster)
 summary(user.action.pca.base)
+summary(wdbc[,c(2:31)])                                                            
 table(dau.user.info[, c("log_month", "gender")])
+table(sms_mt[1,])                                                            
 
 library(reshape2)
 dcast(dau.user.info, log_month ~ gender + generation, value.var = "user_id",
@@ -311,10 +319,47 @@ dcast(dau.user.info, log_month ~ gender + generation, value.var = "user_id",
 
 table(mert_rank$rank)
 bmi_prop <- prop.table(table(df_data$bmi_cate)) * 100
+                                                            
 
-#########################################################################
-test
 
+
+
+#### Using FOR Statement ################################################
+                                                           
+for(i in k){
+  cat('i=', i, '\n')
+  pred <- knn(wdbc_train, wdbc_test, wdbc_train_y, k=i)
+  t <- table(pred, wdbc_test_y)
+  acc[cnt] <- (t[1,1]+t[2,2]) / sum(t)
+  cat('분류정확도', acc[cnt], '\n')
+  cnt <- cnt +1 # 카운터 
+}
+
+acc # 21
+sort(acc, decreasing = T) # 내림차순 
+# [1] 0.9590643 0.9590643 0.9590643
+# k = 6
+
+first <- sort(acc, decreasing = T)[1]
+first
+
+for(i in k){
+  if(acc[i-4] >= first) {
+    cat('k=', i)
+    cat(', 분류정확도', acc[i-4], '\n')
+  }
+}
+
+}
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
 
 
 
