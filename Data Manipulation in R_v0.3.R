@@ -34,6 +34,10 @@ rownames(dau.user.info) <- NULL
 row.names(google) <- 1:733
 nrow(acs)
 
+# detecting of NA
+summary(teens$age) # NA's 5523,   
+table(teens$gender, useNA = "ifany")
+mean(teens$age, na.rm = T)
 
 # 중복제거 
 unique(Cars93[, c("Origin", "Type")])
@@ -342,11 +346,15 @@ dcast(dau.user.info, log_month ~ gender + generation, value.var = "user_id",
 
 table(mert_rank$rank)
 bmi_prop <- prop.table(table(df_data$bmi_cate)) * 100
-                                                            
+mean(teens$age, na.rm = T)                                                            
 
-
-
-
+# ave(기준변수, 집단변수, FUNC = mean())
+ave(df$x, df$y, FUN = function(x) mean(x, na.rm = T))
+# - 졸업년도 기준으로 나이 평균 계산 해서 NA 값을 채우기 
+avg <- ave(teens$age, teens$gradyear, FUN=function(x) mean(x, na.rm =T))    
+teens$age <- ifelse(is.na(teens$age), avg, teens$age)
+           
+           
 #### Using FOR Statement ################################################
                                                            
 for(i in k){
