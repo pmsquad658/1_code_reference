@@ -15,6 +15,7 @@ names(user.action.pca.base)
 names(allMoVals) <- c("scenario","variable","year","month","model","Value","yrMon","seas")
 names(df_data) <- tolower(names(df_data))  # 컬럼값을 소문자로 변환 전처리
 colnames(perf_mat) <- c("Naive Bayes", "LR with all variables", "LR with selected variables")
+colnames(trnData)[31] <- "Target"
 rownames(perf_mat) <- c("TPR", "TNR", "ACC", "BCR")
 
 
