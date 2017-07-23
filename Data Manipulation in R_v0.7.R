@@ -1,6 +1,6 @@
 ####################################################
 #### Data Manipulation in R ########################
-#-------------------- v0.6 _ by 박민수. 2017. 7. 1
+#-------------------- v0.6 _ by 박민수. 2017. 6. 30
 
 
 ##### 초기 setting ########################################
@@ -35,8 +35,6 @@ rownames(dau.user.info) <- NULL
 row.names(google) <- 1:733
 nrow(acs)
 
-rownames(newiris) <- paste("I", 1:500, sep = "_")
-
 # detecting of NA
 summary(teens$age) # NA's 5523,   
 table(teens$gender, useNA = "ifany")
@@ -63,7 +61,6 @@ nCar <- dim(corolla)[1]
 nVar <- dim(corolla)[2]
 
 
-
 ##### 형변환 #########################################################
 
 ploan_data <- data.frame(ploan_input, ploan_target)
@@ -81,7 +78,6 @@ datetime_3 <- as.POSIXlt(number_3, # character
                          tz ="UTC") # UTC : universal time
 datetime_3 # "2016-07-09 10:30:50 UTC"
 [1] "2016-07-09 10:30:50 UTC"
-hc.summary <- data.frame()
 
 # factor, labels
 mtcars$tm=factor(mtcars$am,labels=c("automatic","manual"))
@@ -129,10 +125,6 @@ a1[!complete.cases(a1),]
 acs1=na.omit(acs)
 acs2=na.omit(acs[c("EF","BMI")])
 barplot(na.count[na.count>0]) # 0이상인 데이터만 플로팅하기
-                                                            
-# 이렇게할경우 Species column 이 삭제된다      
-newiris$Species <- NULL                                                            
-                                                         
 
 
 ##### 숫자처리 ########################################################
@@ -184,6 +176,7 @@ grep("[[:digit:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=T
 grep("[[:lower:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 소문자를 포함하는 데이터를 전부 출력 
 grep("^[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 첫 글자가 대문자인 데이터를 전부 출력
 grep("[[:upper:]]", c("apple1", "apple2", "apple3", "apple4", "Apple1"), value=TRUE) ## 대문자를 포함하고 있는 데이터를 전부 출력
+
 
 ##### 날짜 처리 ######################################################
 year <- format(subway2[,"income_date"], "%Y") 
@@ -285,12 +278,8 @@ class(df[1:3, 2])
 class(df[1:3, 2, drop=F])
                                                             
 # which statement
-# which 문 안에는 조건값을준다
 full_predicted[which(full_response >= 0.5)] <- 1
 p_idx <- which(corolla$Fuel_Type == "Petrol")
-best.k <- nk[which.min(val.rmse)]
-full_predicted[which(full_response >= 0.5)] <- 1                                                            
-
                                                             
 # lapply
 interests_n <- as.data.frame(lapply(interests, scale))   # interests : data.frame
